@@ -1,0 +1,21 @@
+<link href="/css/style.css" rel="stylesheet" type="text/css">
+  <table class="log_table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Avg. Load Time</th>
+                <th>Avg. Server Response Time</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<% for(var i=0; i<result.length; i++) {%>
+			    <tr class="result">
+			      <td><%= result[i]['_id'] %></td>
+			      <td><%= result[i]['Avg LoadTime'].toFixed(2) %></td>
+			      <td><%= result[i]['Avg serverResponseTime'].toFixed(2) %></td>
+			      <td><%= result[i]['count'] %></td>
+			    </tr>
+			 <% } %>
+        </tbody>
+    </table>
