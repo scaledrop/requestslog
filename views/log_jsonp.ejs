@@ -1,0 +1,34 @@
+  <link href="/css/style.css" rel="stylesheet" type="text/css">
+
+  <table class="log_table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Service URL</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<% for(var i=0; i<result.length; i++) {%>
+			    <tr class="result">
+			      <td><div class="overflow_block"><%= result[i]['_id'] %></div></td>
+			      <td><div class="overflow_block">
+                    <% if(result[i]['service_url'].length > 1){ %>
+                        <table>
+                            <tbody>
+                                <% for(var j=0; j<result[i]['service_url'].length; j++) {%>
+                                    <tr><td><%= result[i]['service_url'][j] %></td></tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    <% } %>
+                    <% if(result[i]['service_url'].length == 1){ %>
+                        <%= result[i]['service_url'] %>
+                    <% } %>
+                    </div>
+                  </td>
+			      <td><%= result[i]['count'] %></td>
+			    </tr>
+			 <% } %>
+        </tbody>
+    </table>
