@@ -1,0 +1,29 @@
+{
+  "name": "requestloadlog",
+  "version": "1.0.0",
+  "description": "Tracks the requests and store it in the mongo environment",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/scaledrop/requestslog.git"
+  },
+  "keywords": [
+    "urlloadlog"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scaledrop/requestslog/issues"
+  },
+  "homepage": "https://github.com/scaledrop/requestslog#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.9",
+    "express": "^4.16.3",
+    "mongodb": "^3.0.7"
+  }
+}
