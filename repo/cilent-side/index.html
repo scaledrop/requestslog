@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Request Load log</title>
+</head>
+<body>
+    <p>
+        <strong>Helping fetch page load time, server response time !!</strong>
+        <i>See the network whether you're making a proper request.</i>
+    </p>
+
+    <script>
+
+        var base_url = 'http://localhost:1300/url/log', 
+        // calculate load time and server load time
+        loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart,
+        loadTime = (loadTime / 1000).toFixed(2),
+        serverResponseTime = window.performance.timing.responseStart - window.performance.timing.requestStart;
+        serverResponseTime = (serverResponseTime / 1000).toFixed(2);
+        
+        var emailid = 'test@example.com', //  current user's id. Note: It is for tracking multiple user's machine and aggregate the laod time accordingly, you are free to take any other field instead of emailid;
+        data = {
+            url: (window.location.origin + window.location.pathname),
+            loadTime: loadTime,
+            serverResponseTime: serverResponseTime,
+            emailid: emailid
+        };
+
+        // helper function
+        ajax = {
+            x: function () {
+                if (typeof XMLHttpRequest !== 'undefined') {
+                    return new XMLHttpRequest();
+                }
+                var versions = [
+                    "MSXML2.XmlHttp.6.0",
+                    "MSXML2.XmlHttp.5.0",
+                    "MSXML2.XmlHttp.4.0",
+                    "MSXML2.XmlHttp.3.0",
+                    "MSXML2.XmlHttp.2.0",
+                    "Microsoft.XmlHttp"
+                ];
+                var xhr;
+                for (var i = 0; i < versions.length; i++) {
+                    try {
+                        xhr = new ActiveXObject(versions[i]);
+                        break;
+                    } catch (e) {
+                    }
+                }
+                return xhr;
+            },
+            send: function (url, callback, method, data, sync) {
+                var x = ajax.x();
+                x.open(method, url, sync);
+                x.onreadystatechange = function () {
+                    if (x.readyState == 4) {
+                        callback(x.responseText)
+                    }
+                };
+                if (method == 'POST') {
+                    x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                }
+                x.send(data)
+            },
+            get: function (url, data, callback, sync) {
+                var query = [];
+                for (var key in data) {
+                    query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+                }
+                ajax.send(url + (query.length ? '?' + query.join('&') : ''), callback, 'GET', null, sync)
+            },
+            post: function (url, data, callback, sync) {
+                var query = [];
+                for (var key in data) {
+                    query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+                }
+                ajax.send(url, callback, 'POST', query.join('&'), sync)
+            }
+        };
+            
+        // Initiate a request from the page
+        ajax.get(base_url, data, function (data) {
+            console.log("data", data);
+        });
+    </script>
+</body>
+</html>
