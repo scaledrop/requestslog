@@ -19,7 +19,7 @@ Note: {path} above denotes where your app is running, 8080 is default.
 
 ## Example
 Please use the below code anywhere you wish to test performance.
-```
+```javascript
 var base_url = '/url/log',
 
 // calculate load time and server load time
